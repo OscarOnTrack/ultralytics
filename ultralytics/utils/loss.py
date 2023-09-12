@@ -293,7 +293,7 @@ class v8SegmentationLoss(v8DetectionLoss):
         """Mask loss for one image."""
         pred_mask = (pred @ proto.view(self.nm, -1)).view(-1, *proto.shape[1:])  # (n, 32) @ (32,80,80) -> (n,80,80)
         loss = F.binary_cross_entropy_with_logits(pred_mask, gt_mask, reduction='none')
-        return (crop_mask(loss, xyxy).mean(dim=(1, 2)) / area).mean()
+        return (loss.mean(dim=(1, 2)) / area).mean()
 
 
 class v8PoseLoss(v8DetectionLoss):
