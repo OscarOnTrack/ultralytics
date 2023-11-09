@@ -24,7 +24,7 @@ class SegmentationPredictor(DetectionPredictor):
         super().__init__(cfg, overrides, _callbacks)
         self.args.task = 'segment'
 
-    def postprocess(self, preds, img, orig_imgs, crop=False):
+    def postprocess(self, preds, img, orig_imgs, crop=True):
         p = ops.non_max_suppression(preds[0],
                                     self.args.conf,
                                     self.args.iou,
